@@ -327,13 +327,12 @@ const SurfaceTempPage = () => {
 
   // Audio narrations for each section
   const audioNarrations = {
-    hero: "/audio/about.mp3",
-    timeline1: "/audio/about.mp3",
-    timeline2: "/audio/about.mp3",
-   
-    impact2: "/audio/about.mp3",
-    impact3: "/audio/about.mp3",
-    impact4: "/audio/about.mp3",
+    hero: "/audio/Solar-About.mp3",
+    timeline1: "/audio/Solar-Bar.mp3",
+    timeline2: "/audio/Solar-Scatter.mp3",
+    impact2: "/audio/Solar-Impact.mp3",
+    impact3: "/audio/Solar-HeatStore.mp3",
+    impact4: "/audio/Solar-HeatStore2.mp3",
     qa: "/audio/about.mp3"
   };
 
