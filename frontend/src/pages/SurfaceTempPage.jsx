@@ -275,7 +275,9 @@ const SurfaceTempHeroSection = () => {
           transition={{ delay: 2.5, duration: 1 }}
           className="absolute bottom-12 left-1/2 -translate-x-1/2"
         >
-          <motion.div
+          
+        </motion.div>
+        <motion.div
             animate={{ y: [0, 15, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             className="flex flex-col items-center gap-2"
@@ -285,7 +287,6 @@ const SurfaceTempHeroSection = () => {
             </span>
             <div className="w-px h-20 bg-gradient-to-b from-cyan-400/80 via-blue-500/60 to-transparent shadow-lg" />
           </motion.div>
-        </motion.div>
       </div>
     </section>
   );
@@ -300,7 +301,8 @@ const SurfaceTempPage = () => {
   const impact2Ref = useRef(null);
   const impact3Ref = useRef(null);
   const impact4Ref = useRef(null);
-  const qaRef = useRef(null);
+ 
+ 
   
   // Audio ref
   const audioRef = useRef(null);
@@ -323,8 +325,9 @@ const SurfaceTempPage = () => {
   const isImpact2InView = useInView(impact2Ref, { margin: "-10% 0px -10% 0px" });
   const isImpact3InView = useInView(impact3Ref, { margin: "-10% 0px -10% 0px" });
   const isImpact4InView = useInView(impact4Ref, { margin: "-10% 0px -10% 0px" });
+
   
-  const isQAInView = useInView(qaRef, { margin: "-10% 0px -10% 0px" });
+ 
 
   // Audio narrations for each section
   const audioNarrations = {
@@ -334,11 +337,12 @@ const SurfaceTempPage = () => {
     impact2: "/audio/Solar-Impact.mp3",
     impact3: "/audio/Solar-HeatStore.mp3",
     impact4: "/audio/Solar-HeatStore2.mp3",
-    qa: "/audio/about.mp3"
+   
+   
   };
 
   // Section order for auto-play
-  const sectionOrder = ['hero', 'timeline1', 'timeline2', 'impact2', 'impact3','impact4','qa'];
+  const sectionOrder = ['hero', 'timeline1', 'timeline2', 'impact2', 'impact3','impact4'];
   const sectionRefs = {
     hero: heroRef,
     timeline1: timeline1Ref,
@@ -347,7 +351,7 @@ const SurfaceTempPage = () => {
     impact2: impact2Ref,
     impact3: impact3Ref,
     impact4: impact4Ref,
-    qa: qaRef
+   
   };
 
   // Section data with proper components
@@ -405,11 +409,8 @@ const SurfaceTempPage = () => {
       component: <Map gifSrc="/gifs/toa_lw_all_mon_animation.gif" caption="Ocean warming impact" />,
       background: "/videos/ocean-warming.mp4"
     },
-    qa: {
-      title: "Q&A Session",
-      subtitle: "Answered by Climate Scientists",
-      background: "/videos/climate-qa.mp4"
-    }
+    
+   
   };
 
   // Improved scroll function with proper timing
@@ -613,8 +614,6 @@ const SurfaceTempPage = () => {
   // Update current section based on scroll (for manual navigation)
   useEffect(() => {
     if (autoPlayEnabled || isScrolling) return;
-
-    if (isQAInView) setCurrentSection('qa');
     else if (isImpact4InView) setCurrentSection('impact4');
     else if (isImpact3InView) setCurrentSection('impact3');
     else if (isImpact2InView) setCurrentSection('impact2');
@@ -630,7 +629,8 @@ const SurfaceTempPage = () => {
     isImpact2InView, 
     isImpact3InView, 
     isImpact4InView, 
-    isQAInView, 
+ 
+  
     autoPlayEnabled, 
     isScrolling
   ]);
@@ -755,92 +755,6 @@ const SurfaceTempPage = () => {
     );
   }, []);
 
-  // Enhanced Q&A Section Component
-  const QASection = React.useCallback(() => {
-    const sectionInView = useInView(qaRef, { margin: "-10% 0px -10% 0px" });
-
-    return (
-      <section 
-        ref={qaRef}
-        className="min-h-screen relative flex items-center justify-center bg-slate-950 px-4 lg:px-8 py-12 lg:py-20 overflow-hidden"
-      >
-        {/* Background Video */}
-        <VideoBackground src={sections.qa.background} opacity={30} isActive={sectionInView} />
-        
-        {/* Additional Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/90" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
-        
-        <div className="relative z-10 max-w-2xl lg:max-w-3xl mx-auto w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-4 mb-6 lg:mb-8 justify-center">
-              <motion.div
-                animate={{
-                  scale: sectionInView ? [1, 1.1, 1] : 1,
-                }}
-                transition={{ duration: 3, repeat: sectionInView ? Infinity : 0 }}
-                className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-xl"
-              >
-                <MessageCircle className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
-              </motion.div>
-              <h2 className="text-2xl lg:text-3xl font-bold text-white text-center">
-                Climate Questions
-                <span className="block text-base lg:text-lg text-cyan-300 mt-1">Answered by Scientists</span>
-              </h2>
-            </div>
-
-            <div className="bg-black/40 backdrop-blur-xl rounded-2xl lg:rounded-3xl p-4 lg:p-6 border border-cyan-500/30 shadow-xl mb-6 lg:mb-8">
-              <p className="text-base lg:text-lg text-gray-200 mb-4 lg:mb-6 text-center leading-relaxed">
-                Have questions about climate change, temperature rise, or solutions?
-                Our climate experts are here to provide accurate, science-based answers.
-              </p>
-
-              <div className="space-y-3 lg:space-y-4">
-                <input
-                  type="text"
-                  placeholder="What would you like to know about climate change?"
-                  className="w-full bg-black/40 border-2 border-cyan-500/30 rounded-xl lg:rounded-2xl px-4 py-3 lg:py-4 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500 transition-all text-base"
-                />
-                <motion.button
-                  className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-bold py-3 lg:py-4 rounded-xl lg:rounded-2xl transition-all transform hover:scale-[1.02] shadow-xl text-base"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Ask Climate Question
-                </motion.button>
-              </div>
-            </div>
-
-            {/* Common questions */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4">
-              {[
-                "How much has Earth warmed in the last century?",
-                "What are the main causes of global warming?",
-                "How does climate change affect weather patterns?",
-                "What can individuals do to reduce their carbon footprint?",
-                "How do scientists measure global temperatures?",
-                "What are the most effective climate solutions?"
-              ].map((question, i) => (
-                <motion.button
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-black/40 border border-cyan-500/20 hover:border-cyan-500/50 rounded-xl lg:rounded-2xl p-3 lg:p-4 text-left text-gray-300 hover:text-white transition-all hover:scale-[1.02] text-sm lg:text-base"
-                >
-                  {question}
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-    );
-  }, []);
 
   return (
     <div className="bg-slate-950">
@@ -941,7 +855,8 @@ const SurfaceTempPage = () => {
           {currentSection === 'impact2' && 'Ocean Warming'}
           {currentSection === 'impact3' && 'Ocean Warming'}
           {currentSection === 'impact4' && 'Ocean Warming'}
-          {currentSection === 'qa' && 'Q&A Session'}
+      
+         
           {isPlaying && (
             <motion.span
               animate={{ opacity: [1, 0.3, 1] }}
@@ -1012,14 +927,13 @@ const SurfaceTempPage = () => {
         sectionId="impact4" 
         data={sections.impact4}
       />
-
+     
       {/* SurfaceTemp Component */}
       <section className="min-h-screen relative flex items-center justify-center">
         <SurfaceTemp />
       </section>
 
-      {/* Q&A Section */}
-      {/* <QASection /> */}
+     
     </div>
   );
 };

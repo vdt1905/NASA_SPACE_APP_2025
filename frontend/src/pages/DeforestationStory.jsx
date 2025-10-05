@@ -138,8 +138,7 @@ const DeforestationStory = () => {
   const isTimeline2InView = useInView(timeline2Ref, { margin: "-10% 0px -10% 0px" });
   const isImpact1InView = useInView(impact1Ref, { margin: "-10% 0px -10% 0px" });
   const isImpact2InView = useInView(impact2Ref, { margin: "-10% 0px -10% 0px" });
-const isQAInView = useInView(qaRef, { margin: "-30% 0px -30% 0px" });
-
+  const isQAInView = useInView(qaRef, { margin: "-10% 0px -10% 0px" });
 
   // Audio narrations for each section
   const audioNarrations = {
@@ -215,78 +214,40 @@ const isQAInView = useInView(qaRef, { margin: "-30% 0px -30% 0px" });
   };
 
   // Improved scroll function with proper timing
-  // const scrollToSection = useCallback((sectionId) => {
-  //   if (isScrolling) return;
-
-  //   const sectionRef = sectionRefs[sectionId];
-  //   if (sectionRef?.current) {
-  //     setIsScrolling(true);
-      
-  //     sectionRef.current.scrollIntoView({ 
-  //       behavior: 'smooth',
-  //       block: 'start'
-  //     });
-
-  //     // Reset scrolling state after animation completes
-  //     setTimeout(() => {
-  //       setIsScrolling(false);
-  //     }, 1000);
-  //   }
-  // }, [isScrolling]);
   const scrollToSection = useCallback((sectionId) => {
-  if (isScrolling) return;
+    if (isScrolling) return;
 
-  const sectionRef = sectionRefs[sectionId];
-  if (!sectionRef?.current) return;
+    const sectionRef = sectionRefs[sectionId];
+    if (sectionRef?.current) {
+      setIsScrolling(true);
+      
+      sectionRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
 
-  setIsScrolling(true);
-
-  // Scroll smoothly and ensure section is at top
-  sectionRef.current.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start',
-  });
-
-  // Wait for scroll to finish (adjust timeout if needed)
-  const scrollTimeout = setTimeout(() => {
-    setIsScrolling(false);
-    setCurrentSection(sectionId); // ensure currentSection updates
-  }, 1000);
-
-  return () => clearTimeout(scrollTimeout);
-}, [isScrolling, sectionRefs]);
-
+      // Reset scrolling state after animation completes
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 1000);
+    }
+  }, [isScrolling]);
 
   // Move to next section with proper timing
-  // const moveToNextSection = useCallback(() => {
-  //   if (isScrolling || isPaused) return;
-
-  //   const currentIndex = sectionOrder.indexOf(currentSection);
-  //   if (currentIndex < sectionOrder.length - 1) {
-  //     const nextSection = sectionOrder[currentIndex + 1];
-  //     setCurrentSection(nextSection);
-  //     scrollToSection(nextSection);
-  //   } else {
-  //     setAutoPlayEnabled(false);
-  //     setIsPlaying(false);
-  //     setIsPaused(false);
-  //   }
-  // }, [currentSection, isScrolling, isPaused, scrollToSection]);
-
   const moveToNextSection = useCallback(() => {
-  if (isScrolling || isPaused) return;
+    if (isScrolling || isPaused) return;
 
-  const currentIndex = sectionOrder.indexOf(currentSection);
-  if (currentIndex < sectionOrder.length - 1) {
-    const nextSection = sectionOrder[currentIndex + 1];
-    scrollToSection(nextSection);
-  } else {
-    setAutoPlayEnabled(false);
-    setIsPlaying(false);
-    setIsPaused(false);
-  }
-}, [currentSection, isScrolling, isPaused, scrollToSection]);
-
+    const currentIndex = sectionOrder.indexOf(currentSection);
+    if (currentIndex < sectionOrder.length - 1) {
+      const nextSection = sectionOrder[currentIndex + 1];
+      setCurrentSection(nextSection);
+      scrollToSection(nextSection);
+    } else {
+      setAutoPlayEnabled(false);
+      setIsPlaying(false);
+      setIsPaused(false);
+    }
+  }, [currentSection, isScrolling, isPaused, scrollToSection]);
 
   // Move to previous section
   const moveToPreviousSection = useCallback(() => {
@@ -891,7 +852,7 @@ const isQAInView = useInView(qaRef, { margin: "-30% 0px -30% 0px" });
       />
 
       {/* Q&A Section */}
-      {/* <QASection /> */}
+      <QASection />
     </div>
   );
 };

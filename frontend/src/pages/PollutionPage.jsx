@@ -122,7 +122,7 @@ const PollutionPage = () => {
   const timeline3Ref = useRef(null);
  
  
-  const qaRef = useRef(null);
+  
   
   // Audio ref
   const audioRef = useRef(null);
@@ -144,7 +144,7 @@ const PollutionPage = () => {
   const isTimeline3InView = useInView(timeline3Ref, { margin: "-10% 0px -10% 0px" });
 
   
-  const isQAInView = useInView(qaRef, { margin: "-10% 0px -10% 0px" });
+
 
   // Audio narrations for each section
   const audioNarrations = {
@@ -154,18 +154,18 @@ const PollutionPage = () => {
     timeline3: "/audio/India-Pollution.mp3",
    
     
-    qa: "/audio/about.mp3"
+   
   };
 
   // Section order for auto-play
-  const sectionOrder = ['hero', 'timeline1', 'timeline2', 'timeline3', 'qa'];
+  const sectionOrder = ['hero', 'timeline1', 'timeline2', 'timeline3'];
   const sectionRefs = {
     hero: heroRef,
     timeline1: timeline1Ref,
     timeline2: timeline2Ref,
     timeline3: timeline3Ref,
   
-    qa: qaRef
+ 
   };
 
   // Section data with proper components
@@ -187,7 +187,7 @@ const PollutionPage = () => {
     },
     timeline2: {
       year: "",
-      title: "Environmental Awareness",
+      title: "Gujarat",
       description: "First major environmental regulations introduced. Scientists began documenting the health impacts of pollution. Public awareness grew about smog, acid rain, and water contamination.",
       stat1: "Clean Air Act",
       stat2: "50% Increase",
@@ -197,7 +197,7 @@ const PollutionPage = () => {
     },
     timeline3: {
       year: "",
-      title: "Global Expansion",
+      title: "India",
       description: "Rapid industrialization in developing nations. Vehicle emissions became major contributors. Ozone depletion and climate change entered public discourse as critical issues.",
       stat1: "1B Vehicles",
       stat2: "75% Urban Air",
@@ -207,11 +207,7 @@ const PollutionPage = () => {
     },
    
     
-    qa: {
-      title: "Q&A Session",
-      subtitle: "Answered by Environmental Experts",
-      background: "/videos/pollution-qa-bg.mp4"
-    }
+   
   };
 
   // Improved scroll function with proper timing
@@ -416,7 +412,7 @@ const PollutionPage = () => {
   useEffect(() => {
     if (autoPlayEnabled || isScrolling) return;
 
-    if (isQAInView) setCurrentSection('qa');
+   
 
 
     else if (isTimeline3InView) setCurrentSection('timeline3');
@@ -430,7 +426,7 @@ const PollutionPage = () => {
     isTimeline3InView, 
   
    
-    isQAInView, 
+
     autoPlayEnabled, 
     isScrolling
   ]);
@@ -794,7 +790,7 @@ const PollutionPage = () => {
           {currentSection === 'timeline3' && ' Global Expansion'}
          
           
-          {currentSection === 'qa' && 'Q&A Session'}
+         
           {isPlaying && (
             <motion.span
               animate={{ opacity: [1, 0.3, 1] }}

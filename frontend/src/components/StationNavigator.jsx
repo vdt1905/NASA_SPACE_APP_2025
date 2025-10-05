@@ -75,7 +75,7 @@ const stations = [
   },
   {
     id: 'radiation',
-    name: 'Solar Flux',
+    name: 'Topology',
     icon: Sun,
     color: '#FFB300',
     tagline: 'Solar energy & UV monitoring',
@@ -90,23 +90,7 @@ const stations = [
       distortion: 0.1
     }
   },
-  {
-    id: 'cloud',
-    name: 'Cloud Fraction',
-    icon: Zap,
-    color: '#BA68C8',
-    tagline: 'Cloud coverage & weather patterns',
-    description: 'Real-time cloud coverage analysis and meteorological pattern recognition. Essential for weather forecasting, climate modeling, and understanding atmospheric dynamics that influence global weather systems.',
-    gradient: 'from-purple-500 to-indigo-600',
-    lightRays: {
-      raysColor: '#BA68C8',
-      raysSpeed: 1.8,
-      lightSpread: 0.9,
-      rayLength: 1.3,
-      noiseAmount: 0.2,
-      distortion: 0.12
-    }
-  }
+ 
 ];
 
 export default function StationNavigator() {
