@@ -117,7 +117,7 @@ const DeforestationStory = () => {
   const timeline2Ref = useRef(null);
   const impact1Ref = useRef(null);
   const impact2Ref = useRef(null);
-  const qaRef = useRef(null);
+
   
   // Audio ref
   const audioRef = useRef(null);
@@ -138,27 +138,26 @@ const DeforestationStory = () => {
   const isTimeline2InView = useInView(timeline2Ref, { margin: "-10% 0px -10% 0px" });
   const isImpact1InView = useInView(impact1Ref, { margin: "-10% 0px -10% 0px" });
   const isImpact2InView = useInView(impact2Ref, { margin: "-10% 0px -10% 0px" });
-  const isQAInView = useInView(qaRef, { margin: "-10% 0px -10% 0px" });
-
+  
   // Audio narrations for each section
   const audioNarrations = {
-    hero: "/audio/about.mp3",
+    hero: "/audio/defor_about.mp3",
     timeline1: "/audio/about.mp3",
     timeline2: "/audio/about.mp3",
     impact1: "/audio/about.mp3",
     impact2: "/audio/about.mp3",
-    qa: "/audio/about.mp3"
+  
   };
 
   // Section order for auto-play
-  const sectionOrder = ['hero', 'timeline1', 'timeline2', 'impact1', 'impact2', 'qa'];
+  const sectionOrder = ['hero', 'timeline1', 'timeline2', 'impact1', 'impact2'];
   const sectionRefs = {
     hero: heroRef,
     timeline1: timeline1Ref,
     timeline2: timeline2Ref,
     impact1: impact1Ref,
     impact2: impact2Ref,
-    qa: qaRef
+   
   };
 
   // Section data with proper components
@@ -175,7 +174,7 @@ const DeforestationStory = () => {
       stat1: "6M km²",
       stat2: "80% Coverage",
       color: "#10b981",
-      component: <Map gifSrc="/gifs/forest_intact.gif" caption="Pristine Rainforests 2000" />,
+      component: <Map gifSrc="/gifs/ndvi_timeseries.gif" caption="Pristine Rainforests 2000" />,
       background: "/videos/forest-bg.mp4"
     },
     timeline2: {
@@ -185,7 +184,7 @@ const DeforestationStory = () => {
       stat1: "50% Increase",
       stat2: "Palm Oil Boom",
       color: "#f59e0b",
-      component: <Map gifSrc="/gifs/deforestation_trend.gif" caption="Agricultural Expansion 2005" />,
+      component: <Map gifSrc="/gifs/ndvi_gif.gif" caption="Agricultural Expansion 2005" />,
       background: "/videos/forest-bg.mp4"
     },
     impact1: {
@@ -206,11 +205,7 @@ const DeforestationStory = () => {
       component: <Map gifSrc="/gifs/carbon_emissions.gif" caption="Climate Impact" />,
       background: "/videos/deforestation-impact.mp4"
     },
-    qa: {
-      title: "Q&A Session",
-      subtitle: "Answered by Experts",
-      background: "/videos/forest-qa.mp4"
-    }
+  
   };
 
   // Improved scroll function with proper timing
@@ -415,7 +410,7 @@ const DeforestationStory = () => {
   useEffect(() => {
     if (autoPlayEnabled || isScrolling) return;
 
-    if (isQAInView) setCurrentSection('qa');
+   
     else if (isImpact2InView) setCurrentSection('impact2');
     else if (isImpact1InView) setCurrentSection('impact1');
     else if (isTimeline2InView) setCurrentSection('timeline2');
@@ -427,7 +422,7 @@ const DeforestationStory = () => {
     isTimeline2InView, 
     isImpact1InView, 
     isImpact2InView, 
-    isQAInView, 
+     
     autoPlayEnabled, 
     isScrolling
   ]);
@@ -788,7 +783,7 @@ const DeforestationStory = () => {
           {currentSection === 'timeline2' && '2005: Agricultural Expansion'}
           {currentSection === 'impact1' && 'Biodiversity Loss'}
           {currentSection === 'impact2' && 'Climate Impact'}
-          {currentSection === 'qa' && 'Q&A Session'}
+       
           {isPlaying && (
             <motion.span
               animate={{ opacity: [1, 0.3, 1] }}
@@ -852,7 +847,7 @@ const DeforestationStory = () => {
       />
 
       {/* Q&A Section */}
-      <QASection />
+    
     </div>
   );
 };

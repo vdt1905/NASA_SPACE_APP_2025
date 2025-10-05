@@ -299,7 +299,9 @@ const DeforestationHeroSection = () => {
           transition={{ delay: 2.5, duration: 1 }}
           className="absolute bottom-12 left-1/2 -translate-x-1/2"
         >
-          <motion.div
+          
+        </motion.div>
+        <motion.div
             animate={{ y: [0, 15, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             className="flex flex-col items-center gap-3"
@@ -309,7 +311,6 @@ const DeforestationHeroSection = () => {
             </span>
             <div className="w-px h-20 bg-gradient-to-b from-emerald-400/80 via-green-500/60 to-transparent shadow-lg" />
           </motion.div>
-        </motion.div>
       </motion.div>
     </section>
   );

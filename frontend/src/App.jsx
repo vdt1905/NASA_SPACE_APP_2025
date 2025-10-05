@@ -5,7 +5,7 @@ import StationNavigator from './components/StationNavigator';
 import PrismaticBurst from './components/PrismaticBurst';
 import WildfireStory from './pages/WildfireStory';
 import SurfaceTemp from './components/SurfaceTemp';
-
+import GujaratTopography from './components/GujaratTopology';
 import SurfaceTempPage from './pages/SurfaceTempPage';
 import PollutionPage from './pages/PollutionPage';
 import SolarFlux from './pages/SolarFlux';
@@ -20,6 +20,8 @@ function App() {
       <Routes>
         {/* Home / Default route */}
         <Route path="/" element={<WildfireStory />} />
+        <Route path="/guj" element={<GujaratTopography />} />        
+
         {/* Other Pages */}
         <Route path="/station" element={<StationNavigator />} />
         <Route path="/surface-temp" element={<SurfaceTemp />} />
@@ -41,8 +43,6 @@ function App() {
         <Route path="/aster" element={<SurfaceTempPage />} />
         <Route path="/aerosol" element={<PollutionPage />} />
         <Route path="/radiation" element={<TopologyStory />} />
-        
-
 
       </Routes>
     </Router>

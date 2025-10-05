@@ -14,6 +14,7 @@ import {
 import Map from '../components/Map';
 import TopologyHeroSection from '../components/TopologyHeroSection';
 import BackButton from '../components/BackButton';
+import GujaratTopography from '../components/GujaratTopology';
 
 // Video Background Component
 const VideoBackground = ({ src, opacity = 30, isActive = true }) => {
@@ -116,7 +117,8 @@ const TopologyStory = () => {
   const heroRef = useRef(null);
   const formationRef = useRef(null);
   const evolutionRef = useRef(null);
-  const impactRef = useRef(null);
+  const impactRef = useRef(null); 
+  const lastRef = useRef(null); 
 
 
   // Audio ref
@@ -137,6 +139,7 @@ const TopologyStory = () => {
   const isFormationInView = useInView(formationRef, { margin: "-10% 0px -10% 0px" });
   const isEvolutionInView = useInView(evolutionRef, { margin: "-10% 0px -10% 0px" });
   const isImpactInView = useInView(impactRef, { margin: "-10% 0px -10% 0px" });
+  const isLastInView = useInView(impactRef, { margin: "-10% 0px -10% 0px" });
 
 
   // Audio narrations for each section
@@ -145,16 +148,18 @@ const TopologyStory = () => {
     formation: "/audio/topo_anaglyph.mp3",
     evolution: "/audio/topo_gujarat.mp3",
     impact: "/audio/topo_girnar.mp3",
+    last: "/audio/topo_last.mp3"
    
   };
 
   // Section order for auto-play
-  const sectionOrder = ['hero', 'formation', 'evolution', 'impact'];
+  const sectionOrder = ['hero', 'formation', 'evolution', 'impact','last'];
   const sectionRefs = {
     hero: heroRef,
     formation: formationRef,
     evolution: evolutionRef,
     impact: impactRef,
+    last: lastRef
     
   };
 
@@ -192,6 +197,15 @@ const TopologyStory = () => {
       stat2: "2,400KM Range",
       color: "#10b981",
       component: <Map gifSrc="/images/girnar.jpg" caption="Plate Tectonics" />,
+      background: "/videos/mountain_bg.mp4"
+    },
+     last: {
+      title: "Girnar Topology",
+      description: "Tectonic collisions created the world's great mountain ranges. The Himalayas continue to rise as the Indian plate pushes into Eurasia, while erosion constantly reshapes these majestic landscapes.",
+      stat1: "8,848M Peak",
+      stat2: "2,400KM Range",
+      color: "#10b981",
+      component: <GujaratTopography />,
       background: "/videos/mountain_bg.mp4"
     },
    
@@ -391,7 +405,7 @@ const TopologyStory = () => {
   useEffect(() => {
     if (autoPlayEnabled || isScrolling) return;
 
-    
+    else if (isLastInView) setCurrentSection('last');   
     else if (isImpactInView) setCurrentSection('impact');
     else if (isEvolutionInView) setCurrentSection('evolution');
     else if (isFormationInView) setCurrentSection('formation');
@@ -401,7 +415,7 @@ const TopologyStory = () => {
     isFormationInView,
     isEvolutionInView,
     isImpactInView,
-   
+   isLastInView,
     autoPlayEnabled,
     isScrolling
   ]);
@@ -611,6 +625,7 @@ const TopologyStory = () => {
           {currentSection === 'formation' && 'Planetary Formation'}
           {currentSection === 'evolution' && 'Continental Drift'}
           {currentSection === 'impact' && 'Mountain Building'}
+          {currentSection === 'last' && ''}
           
           
           {isPlaying && (
@@ -667,6 +682,10 @@ const TopologyStory = () => {
       <ContentSection
         sectionId="impact"
         data={sections.impact}
+      />
+      <ContentSection
+        sectionId="last"
+        data={sections.last}
       />
 
     </div>

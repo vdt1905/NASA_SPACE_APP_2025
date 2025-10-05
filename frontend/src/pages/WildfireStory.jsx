@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
+import GujaratTopography from '../components/GujaratTopology';
 import Map from '../components/Map';
 import WildfireHeroSection from '../components/WildfireHeroSection';
 import BackButton from '../components/BackButton';
