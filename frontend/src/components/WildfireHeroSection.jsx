@@ -97,52 +97,7 @@ const WildfireHeroSection = () => {
       className="min-h-screen relative flex items-center justify-center overflow-hidden"
     >
       {/* Audio Element */}
-      <audio
-        ref={audioRef}
-        src="/audio/about.mp3"
-        preload="auto"
-      />
-
-      {/* Audio Controls */}
-      <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2, duration: 0.8 }}
-        className="absolute top-6 right-6 z-50 flex gap-3"
-      >
-        <motion.button
-          onClick={toggleAudio}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="group relative bg-black/60 backdrop-blur-xl border border-amber-500/40 rounded-full p-4 hover:bg-black/80 hover:border-amber-400/60 transition-all duration-300 shadow-xl"
-        >
-          {isPlaying ? (
-            <Pause size={20} className="text-amber-300" />
-          ) : (
-            <Play size={20} className="text-amber-300 ml-0.5" />
-          )}
-          <div className="absolute -bottom-10 right-0 bg-black/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-amber-200 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-            {isPlaying ? 'Pause narration' : 'Play narration'}
-          </div>
-        </motion.button>
-
-        <motion.button
-          onClick={toggleMute}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="group relative bg-black/60 backdrop-blur-xl border border-amber-500/40 rounded-full p-4 hover:bg-black/80 hover:border-amber-400/60 transition-all duration-300 shadow-xl"
-        >
-          {isMuted ? (
-            <VolumeX size={20} className="text-amber-300" />
-          ) : (
-            <Volume2 size={20} className="text-amber-300" />
-          )}
-          <div className="absolute -bottom-10 right-0 bg-black/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-amber-200 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-            {isMuted ? 'Unmute' : 'Mute'}
-          </div>
-        </motion.button>
-      </motion.div>
-
+      
       {/* Background Video */}
       <div className="absolute inset-0 w-full h-full">
         <video

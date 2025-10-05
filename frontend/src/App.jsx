@@ -7,6 +7,9 @@ import WildfireStory from './pages/WildfireStory';
 import SurfaceTemp from './components/SurfaceTemp';
 import KeplerMap from './components/KeplerMap';
 import SurfaceTempPage from './pages/SurfaceTempPage';
+import PollutionPage from './pages/PollutionPage';
+import SolarFlux from './pages/SolarFlux';
+import DeforestationStory from './pages/DeforestationStory';
 // import LandingPage from './pages/LandingPage'; // if you have one
 
 function App() {
@@ -20,6 +23,9 @@ function App() {
         <Route path="/surface-temp" element={<SurfaceTemp />} />
         <Route path="/surface-temp-page" element={<SurfaceTempPage />} />
         <Route path="/kepler-map" element={<KeplerMap />} />
+        <Route path="/pollution" element={<PollutionPage />} />
+        <Route path="/solarflux" element={<SolarFlux />} />
+        <Route path="/deforestation" element={<DeforestationStory />} />
       </Routes>
     </Router>
   );
