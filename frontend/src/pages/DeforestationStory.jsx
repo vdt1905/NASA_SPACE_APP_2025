@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import Map from '../components/Map';
 import DeforestationHeroSection from '../components/DeforestationHeroSection';
+import BackButton from '../components/BackButton';
 
 // Video Background Component with proper state management
 const VideoBackground = ({ src, opacity = 30, isActive = true }) => {
@@ -137,7 +138,8 @@ const DeforestationStory = () => {
   const isTimeline2InView = useInView(timeline2Ref, { margin: "-10% 0px -10% 0px" });
   const isImpact1InView = useInView(impact1Ref, { margin: "-10% 0px -10% 0px" });
   const isImpact2InView = useInView(impact2Ref, { margin: "-10% 0px -10% 0px" });
-  const isQAInView = useInView(qaRef, { margin: "-10% 0px -10% 0px" });
+const isQAInView = useInView(qaRef, { margin: "-30% 0px -30% 0px" });
+
 
   // Audio narrations for each section
   const audioNarrations = {
@@ -213,40 +215,78 @@ const DeforestationStory = () => {
   };
 
   // Improved scroll function with proper timing
-  const scrollToSection = useCallback((sectionId) => {
-    if (isScrolling) return;
+  // const scrollToSection = useCallback((sectionId) => {
+  //   if (isScrolling) return;
 
-    const sectionRef = sectionRefs[sectionId];
-    if (sectionRef?.current) {
-      setIsScrolling(true);
+  //   const sectionRef = sectionRefs[sectionId];
+  //   if (sectionRef?.current) {
+  //     setIsScrolling(true);
       
-      sectionRef.current.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+  //     sectionRef.current.scrollIntoView({ 
+  //       behavior: 'smooth',
+  //       block: 'start'
+  //     });
 
-      // Reset scrolling state after animation completes
-      setTimeout(() => {
-        setIsScrolling(false);
-      }, 1000);
-    }
-  }, [isScrolling]);
+  //     // Reset scrolling state after animation completes
+  //     setTimeout(() => {
+  //       setIsScrolling(false);
+  //     }, 1000);
+  //   }
+  // }, [isScrolling]);
+  const scrollToSection = useCallback((sectionId) => {
+  if (isScrolling) return;
+
+  const sectionRef = sectionRefs[sectionId];
+  if (!sectionRef?.current) return;
+
+  setIsScrolling(true);
+
+  // Scroll smoothly and ensure section is at top
+  sectionRef.current.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  });
+
+  // Wait for scroll to finish (adjust timeout if needed)
+  const scrollTimeout = setTimeout(() => {
+    setIsScrolling(false);
+    setCurrentSection(sectionId); // ensure currentSection updates
+  }, 1000);
+
+  return () => clearTimeout(scrollTimeout);
+}, [isScrolling, sectionRefs]);
+
 
   // Move to next section with proper timing
-  const moveToNextSection = useCallback(() => {
-    if (isScrolling || isPaused) return;
+  // const moveToNextSection = useCallback(() => {
+  //   if (isScrolling || isPaused) return;
 
-    const currentIndex = sectionOrder.indexOf(currentSection);
-    if (currentIndex < sectionOrder.length - 1) {
-      const nextSection = sectionOrder[currentIndex + 1];
-      setCurrentSection(nextSection);
-      scrollToSection(nextSection);
-    } else {
-      setAutoPlayEnabled(false);
-      setIsPlaying(false);
-      setIsPaused(false);
-    }
-  }, [currentSection, isScrolling, isPaused, scrollToSection]);
+  //   const currentIndex = sectionOrder.indexOf(currentSection);
+  //   if (currentIndex < sectionOrder.length - 1) {
+  //     const nextSection = sectionOrder[currentIndex + 1];
+  //     setCurrentSection(nextSection);
+  //     scrollToSection(nextSection);
+  //   } else {
+  //     setAutoPlayEnabled(false);
+  //     setIsPlaying(false);
+  //     setIsPaused(false);
+  //   }
+  // }, [currentSection, isScrolling, isPaused, scrollToSection]);
+
+  const moveToNextSection = useCallback(() => {
+  if (isScrolling || isPaused) return;
+
+  const currentIndex = sectionOrder.indexOf(currentSection);
+  if (currentIndex < sectionOrder.length - 1) {
+    const nextSection = sectionOrder[currentIndex + 1];
+    scrollToSection(nextSection);
+  } else {
+    setAutoPlayEnabled(false);
+    setIsPlaying(false);
+    setIsPaused(false);
+  }
+}, [currentSection, isScrolling, isPaused, scrollToSection]);
+
 
   // Move to previous section
   const moveToPreviousSection = useCallback(() => {
@@ -693,6 +733,9 @@ const DeforestationStory = () => {
   return (
     <div className="bg-slate-950">
       {/* Hidden Audio Element */}
+       <div className="fixed top-6 left-6 z-50">
+      <BackButton />
+    </div>
       <audio ref={audioRef} preload="auto" />
 
       {/* Global Controls */}
@@ -848,7 +891,7 @@ const DeforestationStory = () => {
       />
 
       {/* Q&A Section */}
-      <QASection />
+      {/* <QASection /> */}
     </div>
   );
 };

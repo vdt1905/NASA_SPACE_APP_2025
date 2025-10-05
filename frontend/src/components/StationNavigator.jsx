@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Flame, Leaf, Mountain, Cloud, Sun, Zap, ChevronLeft, ChevronRight, Satellite, Activity } from 'lucide-react';
 import LightRays from './LightRays';
+import { useNavigate } from 'react-router-dom';
+
 
 const stations = [
   {
@@ -22,7 +24,7 @@ const stations = [
   },
   {
     id: 'ndvi',
-    name: 'NDVI',
+    name: 'Deforestation',
     icon: Leaf,
     color: '#4CAF50',
     tagline: 'Vegetation health analysis',
@@ -39,7 +41,7 @@ const stations = [
   },
   {
     id: 'aster',
-    name: 'ASTER',
+    name: 'Surface Temp',
     icon: Mountain,
     color: '#D4A574',
     tagline: 'Terrain & surface temperature',
@@ -56,7 +58,7 @@ const stations = [
   },
   {
     id: 'aerosol',
-    name: 'Aerosol',
+    name: 'Pollution',
     icon: Cloud,
     color: '#64B5F6',
     tagline: 'Air quality & particle tracking',
@@ -73,7 +75,7 @@ const stations = [
   },
   {
     id: 'radiation',
-    name: 'Radiation',
+    name: 'Solar Flux',
     icon: Sun,
     color: '#FFB300',
     tagline: 'Solar energy & UV monitoring',
@@ -110,6 +112,8 @@ const stations = [
 export default function StationNavigator() {
   const [activeStation, setActiveStation] = useState(0);
   const [hoveredStation, setHoveredStation] = useState(null);
+  const navigate = useNavigate();
+
 
   const handleStationClick = (index) => {
     setActiveStation(index);
@@ -394,6 +398,7 @@ export default function StationNavigator() {
 
               {/* Navigation button */}
               <button 
+              onClick={() => navigate(`/${currentStation.id}`)} 
                 className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                 style={{
                   background: `linear-gradient(135deg, ${currentStation.color}20, ${currentStation.color}10)`,

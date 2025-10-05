@@ -17,6 +17,7 @@ import {
 import Map from '../components/Map';
 import SolarFluxHeroSection from '../components/SolarFluxHeroSection';
 import SolarActivity from '../components/SolarActivity';
+import BackButton from '../components/BackButton';
 
 // Video Background Component with proper state management
 const VideoBackground = ({ src, opacity = 30, isActive = true }) => {
@@ -762,6 +763,9 @@ const SolarFlux = () => {
   return (
     <div className="bg-slate-950">
       {/* Hidden Audio Element */}
+      <div className="fixed top-6 left-6 z-50">
+      <BackButton />
+    </div>
       <audio ref={audioRef} preload="auto" />
 
       {/* Global Controls */}
@@ -941,7 +945,7 @@ const SolarFlux = () => {
       />
 
       {/* Q&A Section */}
-      <QASection />
+      {/* <QASection /> */}
     </div>
   );
 };

@@ -690,7 +690,7 @@ const WildfireStory = () => {
       />
 
       {/* Q&A Section */}
-      <QASection />
+      {/* <QASection /> */}
     </div>
   );
 };

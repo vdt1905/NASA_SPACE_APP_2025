@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
+import BackButton from '../components/BackButton';
 import SurfaceTemp from '../components/SurfaceTemp';
 import VideoMap from '../components/VideoMap';
 import MediaMap from '../components/MediaMap';
@@ -376,7 +377,7 @@ const SurfaceTempPage = () => {
       component: <Map gifSrc="/gifs/global_temp_scatter.gif" caption="Rising temperature trend 2005-2023" />,
       background: "/videos/heat-timeline.mp4"
     },
-   
+
     impact2: {
       title: "Ocean Warming",
       description: "Marine heatwaves devastated coral reefs and disrupted marine ecosystems. Ocean acidification threatened shellfish and plankton, the foundation of marine food webs.",
@@ -654,10 +655,12 @@ const SurfaceTempPage = () => {
     const shouldAnimate = sectionInView || hasBeenViewed;
 
     return (
+     
       <section 
         ref={sectionRef}
         className="min-h-screen relative flex items-center justify-center px-4 lg:px-8 py-12 lg:py-20 overflow-hidden"
       >
+      
         {/* Background Video - More stable activation */}
         <VideoBackground 
           src={data.background} 
@@ -841,6 +844,9 @@ const SurfaceTempPage = () => {
 
   return (
     <div className="bg-slate-950">
+      <div className="fixed top-6 left-6 z-50">
+      <BackButton />
+    </div>
       {/* Hidden Audio Element */}
       <audio ref={audioRef} preload="auto" />
 
@@ -1013,7 +1019,7 @@ const SurfaceTempPage = () => {
       </section>
 
       {/* Q&A Section */}
-      <QASection />
+      {/* <QASection /> */}
     </div>
   );
 };

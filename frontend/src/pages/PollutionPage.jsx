@@ -16,6 +16,7 @@ import {
 import Map from '../components/Map';
 import PollutionHeroSection from '../components/PollutionHeroSection';
 import AirQuality from '../components/AirQuality';
+import BackButton from '../components/BackButton';
 
 // Video Background Component with proper state management
 const VideoBackground = ({ src, opacity = 30, isActive = true }) => {
@@ -119,7 +120,7 @@ const PollutionPage = () => {
   const timeline1Ref = useRef(null);
   const timeline2Ref = useRef(null);
   const timeline3Ref = useRef(null);
-  const timeline4Ref = useRef(null);
+ 
  
   const qaRef = useRef(null);
   
@@ -141,7 +142,7 @@ const PollutionPage = () => {
   const isTimeline1InView = useInView(timeline1Ref, { margin: "-10% 0px -10% 0px" });
   const isTimeline2InView = useInView(timeline2Ref, { margin: "-10% 0px -10% 0px" });
   const isTimeline3InView = useInView(timeline3Ref, { margin: "-10% 0px -10% 0px" });
-  const isTimeline4InView = useInView(timeline4Ref, { margin: "-10% 0px -10% 0px" });
+
   
   const isQAInView = useInView(qaRef, { margin: "-10% 0px -10% 0px" });
 
@@ -151,19 +152,19 @@ const PollutionPage = () => {
     timeline1: "/audio/Globe-Pollution.mp3",
     timeline2: "/audio/Gujarat-Pollution.mp3",
     timeline3: "/audio/India-Pollution.mp3",
-    timeline4: "/audio/Impact-Pollution.mp3",
+   
     
     qa: "/audio/about.mp3"
   };
 
   // Section order for auto-play
-  const sectionOrder = ['hero', 'timeline1', 'timeline2', 'timeline3', 'timeline4', 'qa'];
+  const sectionOrder = ['hero', 'timeline1', 'timeline2', 'timeline3', 'qa'];
   const sectionRefs = {
     hero: heroRef,
     timeline1: timeline1Ref,
     timeline2: timeline2Ref,
     timeline3: timeline3Ref,
-    timeline4: timeline4Ref,
+  
     qa: qaRef
   };
 
@@ -175,7 +176,7 @@ const PollutionPage = () => {
       background: "/videos/pollution.mp4"
     },
     timeline1: {
-      year: "1950",
+      year: "",
       title: "Industrial Revolution",
       description: "Post-war industrial boom led to rapid urbanization and manufacturing growth. Factories operated with minimal environmental regulations, marking the beginning of modern air pollution.",
       stat1: "500+ Cities",
@@ -185,7 +186,7 @@ const PollutionPage = () => {
       background: "/videos/pollution.mp4"
     },
     timeline2: {
-      year: "1970",
+      year: "",
       title: "Environmental Awareness",
       description: "First major environmental regulations introduced. Scientists began documenting the health impacts of pollution. Public awareness grew about smog, acid rain, and water contamination.",
       stat1: "Clean Air Act",
@@ -195,7 +196,7 @@ const PollutionPage = () => {
       background: "/videos/pollution.mp4"
     },
     timeline3: {
-      year: "1990",
+      year: "",
       title: "Global Expansion",
       description: "Rapid industrialization in developing nations. Vehicle emissions became major contributors. Ozone depletion and climate change entered public discourse as critical issues.",
       stat1: "1B Vehicles",
@@ -204,16 +205,7 @@ const PollutionPage = () => {
       component: <Map gifSrc="/gifs/mopitt_co_india.gif" caption="Global Expansion" />,
       background: "/videos/pollution.mp4"
     },
-    timeline4: {
-      year: "2010",
-      title: "Modern Crisis",
-      description: "Microplastics discovered in oceans and drinking water. PM2.5 particles identified as major health risk. Developing cities face extreme pollution levels affecting millions daily.",
-      stat1: "9M Deaths/Year",
-      stat2: "90% Unsafe Air",
-      color: "#dc2626",
-      component: <Map gifSrc="/gifs/pollution_crisis.gif" caption="Modern Crisis" />,
-      background: "/videos/pollution.mp4"
-    },
+   
     
     qa: {
       title: "Q&A Session",
@@ -426,7 +418,7 @@ const PollutionPage = () => {
 
     if (isQAInView) setCurrentSection('qa');
 
-    else if (isTimeline4InView) setCurrentSection('timeline4');
+
     else if (isTimeline3InView) setCurrentSection('timeline3');
     else if (isTimeline2InView) setCurrentSection('timeline2');
     else if (isTimeline1InView) setCurrentSection('timeline1');
@@ -436,7 +428,7 @@ const PollutionPage = () => {
     isTimeline1InView, 
     isTimeline2InView, 
     isTimeline3InView, 
-    isTimeline4InView, 
+  
    
     isQAInView, 
     autoPlayEnabled, 
@@ -707,6 +699,9 @@ const PollutionPage = () => {
   return (
     <div className="bg-slate-950">
       {/* Hidden Audio Element */}
+       <div className="fixed top-6 left-6 z-50">
+      <BackButton />
+    </div>
       <audio ref={audioRef} preload="auto" />
 
       {/* Global Controls */}
@@ -794,10 +789,10 @@ const PollutionPage = () => {
           className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-black/60 backdrop-blur-xl border border-cyan-500/40 rounded-full px-4 py-2 text-cyan-300 text-sm"
         >
           {currentSection === 'hero' && 'Introduction'}
-          {currentSection === 'timeline1' && '1950: Industrial Revolution'}
-          {currentSection === 'timeline2' && '1970: Environmental Awareness'}
-          {currentSection === 'timeline3' && '1990: Global Expansion'}
-          {currentSection === 'timeline4' && '2010: Modern Crisis'}
+          {currentSection === 'timeline1' && ' Industrial Revolution'}
+          {currentSection === 'timeline2' && ' Environmental Awareness'}
+          {currentSection === 'timeline3' && ' Global Expansion'}
+         
           
           {currentSection === 'qa' && 'Q&A Session'}
           {isPlaying && (
@@ -855,21 +850,17 @@ const PollutionPage = () => {
         isTimeline={true}
       />
 
-      <ContentSection 
-        sectionId="timeline4" 
-        data={sections.timeline4}
-        isTimeline={true}
-      />
+     
 
       {/* Impact Sections */}
       
 
       {/* Q&A Section */}
-      <QASection 
+      {/* <QASection 
       sectionId="qa" 
         data={sections.qa}
         isTimeline={true}
-        />
+        /> */}
     </div>
   );
 };

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import Map from '../components/Map';
 import WildfireHeroSection from '../components/WildfireHeroSection';
+import BackButton from '../components/BackButton';
 
 // Video Background Component with proper state management
 const VideoBackground = ({ src, opacity = 30, isActive = true }) => {
@@ -51,15 +52,15 @@ const VideoBackground = ({ src, opacity = 30, isActive = true }) => {
 // Enhanced Impact Component with proper animations
 const ImpactComponent = ({ title, description, stat1, stat2, color, component, isActive = true }) => {
   return (
-    <motion.div 
+    <motion.div
       className="w-full h-full flex flex-col items-center justify-center p-6"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={isActive ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
       transition={{ duration: 0.8 }}
     >
       <div className="text-center mb-6">
-        <motion.h3 
-          className="text-2xl font-bold text-white mb-2" 
+        <motion.h3
+          className="text-2xl font-bold text-white mb-2"
           style={{ color }}
           initial={{ opacity: 0, y: 20 }}
           animate={isActive ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
@@ -67,7 +68,7 @@ const ImpactComponent = ({ title, description, stat1, stat2, color, component, i
         >
           {title}
         </motion.h3>
-        <motion.p 
+        <motion.p
           className="text-gray-300 text-sm max-w-md mx-auto"
           initial={{ opacity: 0 }}
           animate={isActive ? { opacity: 1 } : { opacity: 1 }}
@@ -76,8 +77,8 @@ const ImpactComponent = ({ title, description, stat1, stat2, color, component, i
           {description}
         </motion.p>
       </div>
-      
-      <motion.div 
+
+      <motion.div
         className="flex gap-6 mb-6"
         initial={{ opacity: 0, y: 20 }}
         animate={isActive ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
@@ -96,8 +97,8 @@ const ImpactComponent = ({ title, description, stat1, stat2, color, component, i
           <div className="text-gray-400 text-sm mt-1">Magnitude</div>
         </div>
       </motion.div>
-      
-      <motion.div 
+
+      <motion.div
         className="w-full max-w-md h-48 bg-black/30 rounded-xl border-2 border-white/10 overflow-hidden"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={isActive ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
@@ -115,12 +116,12 @@ const WildfireStory = () => {
   const timeline1Ref = useRef(null);
   const timeline2Ref = useRef(null);
   const impact1Ref = useRef(null);
-  const impact2Ref = useRef(null);
+
   const qaRef = useRef(null);
-  
+
   // Audio ref
   const audioRef = useRef(null);
-  
+
   // State management
   const [currentSection, setCurrentSection] = useState('hero');
   const [isPlaying, setIsPlaying] = useState(false);
@@ -136,7 +137,7 @@ const WildfireStory = () => {
   const isTimeline1InView = useInView(timeline1Ref, { margin: "-10% 0px -10% 0px" });
   const isTimeline2InView = useInView(timeline2Ref, { margin: "-10% 0px -10% 0px" });
   const isImpact1InView = useInView(impact1Ref, { margin: "-10% 0px -10% 0px" });
-  const isImpact2InView = useInView(impact2Ref, { margin: "-10% 0px -10% 0px" });
+
   const isQAInView = useInView(qaRef, { margin: "-10% 0px -10% 0px" });
 
   // Audio narrations for each section
@@ -145,7 +146,7 @@ const WildfireStory = () => {
     timeline1: "/audio/about.mp3",
     timeline2: "/audio/about.mp3",
     impact1: "/audio/about.mp3",
-    impact2: "/audio/about.mp3",
+  
     qa: "/audio/about.mp3"
   };
 
@@ -156,7 +157,7 @@ const WildfireStory = () => {
     timeline1: timeline1Ref,
     timeline2: timeline2Ref,
     impact1: impact1Ref,
-    impact2: impact2Ref,
+
     qa: qaRef
   };
 
@@ -203,22 +204,7 @@ const WildfireStory = () => {
       />,
       background: "/videos/impact-bg-1.mp4"
     },
-    impact2: {
-      title: "Human Displacement",
-      description: "Entire communities were forced to evacuate, many never returning home. The psychological and economic toll continues to affect generations of families.",
-      stat1: "500K People",
-      stat2: "$50B Damage",
-      color: "#ea580c",
-      component: <ImpactComponent
-        title="Human Displacement"
-        description="Communities forced to evacuate, never returning home"
-        stat1="500K People"
-        stat2="$50B Damage"
-        color="#ea580c"
-        component={<Map />}
-      />,
-      background: "/videos/impact-bg-1.mp4"
-    },
+   
     qa: {
       title: "Q&A Session",
       subtitle: "Answered by Experts",
@@ -233,8 +219,8 @@ const WildfireStory = () => {
     const sectionRef = sectionRefs[sectionId];
     if (sectionRef?.current) {
       setIsScrolling(true);
-      
-      sectionRef.current.scrollIntoView({ 
+
+      sectionRef.current.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
@@ -317,7 +303,7 @@ const WildfireStory = () => {
     setCurrentSection('hero');
     setHasAudioError(false);
     setIsPaused(false);
-    
+
     // Scroll to top first, then start
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => {
@@ -429,32 +415,32 @@ const WildfireStory = () => {
     if (autoPlayEnabled || isScrolling) return;
 
     if (isQAInView) setCurrentSection('qa');
-    else if (isImpact2InView) setCurrentSection('impact2');
+   
     else if (isImpact1InView) setCurrentSection('impact1');
     else if (isTimeline2InView) setCurrentSection('timeline2');
     else if (isTimeline1InView) setCurrentSection('timeline1');
     else if (isHeroInView) setCurrentSection('hero');
   }, [
-    isHeroInView, 
-    isTimeline1InView, 
-    isTimeline2InView, 
-    isImpact1InView, 
-    isImpact2InView, 
-    isQAInView, 
-    autoPlayEnabled, 
+    isHeroInView,
+    isTimeline1InView,
+    isTimeline2InView,
+    isImpact1InView,
+   
+    isQAInView,
+    autoPlayEnabled,
     isScrolling
   ]);
 
   // Enhanced Content Section Component with stable animations
   const ContentSection = React.useCallback(({ sectionId, data, isTimeline = false }) => {
     const sectionRef = sectionRefs[sectionId];
-    const sectionInView = useInView(sectionRef, { 
+    const sectionInView = useInView(sectionRef, {
       margin: "-10% 0px -10% 0px",
     });
 
     // Use a more stable approach for animations
     const [hasBeenViewed, setHasBeenViewed] = useState(false);
-    
+
     useEffect(() => {
       if (sectionInView) {
         setHasBeenViewed(true);
@@ -465,21 +451,21 @@ const WildfireStory = () => {
     const shouldAnimate = sectionInView || hasBeenViewed;
 
     return (
-      <section 
+      <section
         ref={sectionRef}
         className="min-h-screen relative flex items-center justify-center px-4 lg:px-8 py-12 lg:py-20 overflow-hidden"
       >
         {/* Background Video - More stable activation */}
-        <VideoBackground 
-          src={data.background} 
-          opacity={30} 
-          isActive={shouldAnimate} 
+        <VideoBackground
+          src={data.background}
+          opacity={30}
+          isActive={shouldAnimate}
         />
-        
+
         {/* Additional Overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/90" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
-        
+
         {/* Content */}
         <div className="relative z-10 w-full max-w-6xl mx-auto">
           <motion.div
@@ -489,7 +475,7 @@ const WildfireStory = () => {
             className="w-full"
           >
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              
+
               {/* Text Content */}
               <div className="space-y-6">
                 {isTimeline && data.year && (
@@ -564,21 +550,21 @@ const WildfireStory = () => {
   }, []);
 
   // Enhanced Q&A Section Component
-  const QASection = React.useCallback(() => {
+  const QASection = React.useCallback(({}) => {
     const sectionInView = useInView(qaRef, { margin: "-10% 0px -10% 0px" });
 
     return (
-      <section 
+      <section
         ref={qaRef}
         className="min-h-screen relative flex items-center justify-center bg-slate-950 px-4 lg:px-8 py-12 lg:py-20 overflow-hidden"
       >
         {/* Background Video */}
         <VideoBackground src={sections.qa.background} opacity={30} isActive={sectionInView} />
-        
+
         {/* Additional Overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/90" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
-        
+
         <div className="relative z-10 max-w-2xl lg:max-w-3xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -652,6 +638,9 @@ const WildfireStory = () => {
 
   return (
     <div className="bg-slate-950">
+      <div className="fixed top-6 left-6 z-50">
+        <BackButton />
+      </div>
       {/* Hidden Audio Element */}
       <audio ref={audioRef} preload="auto" />
 
@@ -681,13 +670,12 @@ const WildfireStory = () => {
           onClick={togglePlayPause}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className={`group relative backdrop-blur-xl border rounded-full p-4 transition-all duration-300 shadow-xl ${
-            autoPlayEnabled && isPlaying
+          className={`group relative backdrop-blur-xl border rounded-full p-4 transition-all duration-300 shadow-xl ${autoPlayEnabled && isPlaying
               ? 'bg-yellow-500/80 border-yellow-400/60'
               : autoPlayEnabled && isPaused
-              ? 'bg-blue-500/80 border-blue-400/60'
-              : 'bg-green-500/80 border-green-400/60'
-          }`}
+                ? 'bg-blue-500/80 border-blue-400/60'
+                : 'bg-green-500/80 border-green-400/60'
+            }`}
         >
           {autoPlayEnabled && isPlaying ? (
             <Pause size={20} className="text-white" />
@@ -695,8 +683,8 @@ const WildfireStory = () => {
             <Play size={20} className="text-white ml-0.5" />
           )}
           <div className="absolute -bottom-10 right-0 bg-black/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-            {autoPlayEnabled && isPlaying ? 'Pause' : 
-             autoPlayEnabled && isPaused ? 'Resume' : 'Start Presentation'}
+            {autoPlayEnabled && isPlaying ? 'Pause' :
+              autoPlayEnabled && isPaused ? 'Resume' : 'Start Presentation'}
           </div>
         </motion.button>
 
@@ -743,7 +731,7 @@ const WildfireStory = () => {
           {currentSection === 'timeline1' && '2000: Pristine Forests'}
           {currentSection === 'timeline2' && '2005: Early Warning Signs'}
           {currentSection === 'impact1' && 'Ecological Destruction'}
-          {currentSection === 'impact2' && 'Human Displacement'}
+       
           {currentSection === 'qa' && 'Q&A Session'}
           {isPlaying && (
             <motion.span
@@ -769,7 +757,7 @@ const WildfireStory = () => {
       {/* Audio Progress Bar */}
       {autoPlayEnabled && (isPlaying || isPaused) && (
         <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 w-64 bg-black/40 backdrop-blur-xl rounded-full p-1 border border-amber-500/30">
-          <div 
+          <div
             className="h-2 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full transition-all duration-100"
             style={{ width: `${audioProgress}%` }}
           />
@@ -782,33 +770,35 @@ const WildfireStory = () => {
       </section>
 
       {/* Timeline Section 1 */}
-      <ContentSection 
-        sectionId="timeline1" 
+      <ContentSection
+        sectionId="timeline1"
         data={sections.timeline1}
         isTimeline={true}
       />
 
       {/* Timeline Section 2 */}
-      <ContentSection 
-        sectionId="timeline2" 
+      <ContentSection
+        sectionId="timeline2"
         data={sections.timeline2}
         isTimeline={true}
       />
 
       {/* Impact Section 1 */}
-      <ContentSection 
-        sectionId="impact1" 
+      <ContentSection
+        sectionId="impact1"
         data={sections.impact1}
       />
 
       {/* Impact Section 2 */}
-      <ContentSection 
-        sectionId="impact2" 
-        data={sections.impact2}
-      />
+      
 
       {/* Q&A Section */}
-      <QASection />
+      {/* <QASection
+        sectionId="qa"
+        data={sections.qa}
+        isActive={currentSection === 'qa'}
+      /> */}
+
     </div>
   );
 };
